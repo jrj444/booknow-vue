@@ -1,6 +1,11 @@
 <template>
   <div class="nav">
-    <router-link to="/money">记账</router-link>
+    <router-link to="/money">
+      <svg>
+        <use xlink:href="#money"/>
+      </svg>
+      记账
+    </router-link>
     |
     <router-link to="/labels">标签</router-link>
     |
@@ -9,6 +14,14 @@
 </template>
 
 <script>
+  const importAll = (requireContext) => requireContext.keys().forEach(requireContext);
+  try {
+    importAll(require.context("../assets/icons", true, /\.svg$/));
+  } catch (e) {
+    console.log(e);
+  }
+
+
   export default {
     name: "Nav"
   };
