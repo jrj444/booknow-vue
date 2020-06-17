@@ -1,7 +1,9 @@
 <template>
   <div>
     Money
+    <Nav />
   </div>
+
 </template>
 
 <script>
