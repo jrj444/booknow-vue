@@ -1,29 +1,27 @@
 <template>
   <div class="nav">
     <router-link to="/money">
-      <svg>
-        <use xlink:href="#money"/>
-      </svg>
+      <Icon name="money"/>
       记账
     </router-link>
     |
-    <router-link to="/labels">标签</router-link>
+    <router-link to="/labels">
+      <Icon name="labels"/>
+      标签
+    </router-link>
     |
-    <router-link to="/statistics">统计</router-link>
+    <router-link to="/statistics">
+      <Icon name="statistics"/>
+      统计
+    </router-link>
   </div>
 </template>
 
 <script>
-  const importAll = (requireContext) => requireContext.keys().forEach(requireContext);
-  try {
-    importAll(require.context("../assets/icons", true, /\.svg$/));
-  } catch (e) {
-    console.log(e);
-  }
-
-
+  import Icon from "@/components/Icon";
   export default {
-    name: "Nav"
+    name: "Nav",
+    components: {Icon}
   };
 </script>
 
