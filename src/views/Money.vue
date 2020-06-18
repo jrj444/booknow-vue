@@ -2,7 +2,7 @@
   <Layout class-prefix="layout">
     <Tags/>
     <Remark/>
-    <Types/>
+    <Types default-type="-"/>
     <keypad/>
   </Layout>
 </template>
