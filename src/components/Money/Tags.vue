@@ -1,10 +1,7 @@
 <template>
   <div class="tags">
     <ul class="exist-tags">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for="tag in dataSource" :key="tag" @click="select(tag)">{{tag}}</li>
     </ul>
     <div class="new-tag">
       <button>新增标签</button>
@@ -12,10 +9,19 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: "Tags"
-  };
+<script lang="ts">
+  import Vue from 'vue';
+  import {Component, Prop} from 'vue-property-decorator';
+
+  @Component
+  export default class Tags extends Vue {
+    @Prop() dataSource: string[] | undefined;
+    selectedTag: string[] = [];
+
+    select(tag: string) {
+      this.selectedTag.push(tag);
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -26,10 +32,12 @@
     flex-direction: column-reverse;
     flex-wrap: wrap;
     flex-grow: 1;
+
     > .exist-tags {
       display: flex;
       flex-wrap: wrap;
       order: 1;
+
       > li {
         display: flex;
         align-items: center;

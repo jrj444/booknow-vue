@@ -1,22 +1,28 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags/>
+    <Tags :data-source="tags"/>
     <Remark/>
     <Types/>
     <keypad/>
   </Layout>
 </template>
 
-<script>
-  import Tags from "@/components/Money/Tags";
-  import Remark from "@/components/Money/Remark";
-  import Types from "@/components/Money/Types";
-  import Keypad from "@/components/Money/Keypad";
+<script lang="ts">
+  import Tags from '@/components/Money/Tags.vue';
+  import Remark from '@/components/Money/Remark.vue';
+  import Types from '@/components/Money/Types.vue';
+  import Keypad from '@/components/Money/Keypad.vue';
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
 
-  export default {
-    name: "Money",
-    components: {Keypad, Types, Remark, Tags}
-  };
+  @Component({
+    components: {
+      Tags, Remark, Types, Keypad
+    }
+  })
+  export default class Money extends Vue {
+    tags: string[] | undefined = ['购物','饮食','住宿','交通'];
+  }
 </script>
 
 <style lang="scss">
