@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout class-prefix="layout">
     <div class="tags">
       <ul class="exist-tags">
         <li>衣</li>
@@ -11,13 +11,13 @@
         <button>新增标签</button>
       </div>
     </div>
-    <div>
+    <div class="remark-wrapper">
       <label class="remark">
         <span class="name">备注</span>
         <input type="text" placeholder="在这里输入备注">
       </label>
     </div>
-    <div>
+    <div class="types-wrapper">
       <ul class="types">
         <li class="selected">支出</li>
         <li>收入</li>
@@ -50,6 +50,22 @@
     name: "Money"
   };
 </script>
+
+<style lang="scss">
+  .layout-content {
+    display: flex;
+    flex-direction: column-reverse;
+    .tags {
+      order: 2;
+    }
+    .remark-wrapper {
+      order: 1;
+    }
+    .keypad {
+      order: -1;
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
@@ -135,10 +151,14 @@
   .tags {
     padding: 16px;
     font-size: 14px;
-
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    flex-grow: 1;
     > .exist-tags {
       display: flex;
-
+      flex-wrap: wrap;
+      order: 1;
       > li {
         display: flex;
         align-items: center;
@@ -147,6 +167,7 @@
         border-radius: 12px;
         padding: 0 18px;
         margin-right: 16px;
+        margin-top: 4px;
       }
     }
 
