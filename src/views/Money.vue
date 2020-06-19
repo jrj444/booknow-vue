@@ -1,9 +1,10 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags :data-source.sync="tags"/>
-    <Remark/>
-    <Types/>
-    <keypad/>
+    {{record}}
+    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Remark @update:value="onUpdateRemark"/>
+    <Types :value.sync="record.type"/>
+    <keypad @update:value="onUpdateAmount"/>
   </Layout>
 </template>
 
@@ -15,13 +16,33 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
+  type Record = {
+    tags: string[];
+    remark: string;
+    type: string;
+    amount: number;
+  }
+
   @Component({
-    components: {
-      Tags, Remark, Types, Keypad
-    }
+    components: {Tags, Remark, Types, Keypad}
   })
   export default class Money extends Vue {
-    tags: string[] | undefined = ['购物','饮食','住宿','交通'];
+    tags: string[] | undefined = ['购物', '饮食', '住宿', '交通'];
+    record: Record = {
+      tags: [], remark: '', type: '-', amount: 0
+    };
+
+    onUpdateTags(value: string[]) {
+      this.record.tags = value;
+    }
+
+    onUpdateRemark(value: string) {
+      this.record.remark = value;
+    }
+
+    onUpdateAmount(value: string) {
+      this.record.amount = parseFloat(value);
+    }
   }
 </script>
 
