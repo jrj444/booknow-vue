@@ -1,10 +1,12 @@
 <template>
   <div class="tags">
     <ul class="exist-tags">
-      <li v-for="tag in dataSource" :key="tag" @click="select(tag)">{{tag}}</li>
+      <li v-for="tag in dataSource" :key="tag" :class="{selected: selectedTag.indexOf(tag)>=0}" @click="toggle(tag)">
+        {{tag}}
+      </li>
     </ul>
     <div class="new-tag">
-      <button>新增标签</button>
+      <button @click="newTag()">新增标签</button>
     </div>
   </div>
 </template>
@@ -15,11 +17,25 @@
 
   @Component
   export default class Tags extends Vue {
-    @Prop() dataSource: string[] | undefined;
+    @Prop(Array) readonly dataSource: string[] | undefined;
     selectedTag: string[] = [];
 
-    select(tag: string) {
-      this.selectedTag.push(tag);
+    toggle(tag: string) {
+      const index = this.selectedTag.indexOf(tag);
+      if (index >= 0) {
+        this.selectedTag.splice(index, 1);
+      } else {
+        this.selectedTag.push(tag);
+      }
+    }
+
+    newTag() {
+      const name = window.prompt('请输入标签名');
+      if (name === '') {
+        window.alert('标签名不能为空');
+      } else if (this.dataSource) {
+        this.$emit('update:dataSource', [...this.dataSource, name]);
+      }
     }
   }
 </script>
@@ -47,6 +63,10 @@
         padding: 0 18px;
         margin-right: 16px;
         margin-top: 4px;
+
+        &.selected {
+          background: #888888;
+        }
       }
     }
 
