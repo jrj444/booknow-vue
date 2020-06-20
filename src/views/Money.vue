@@ -4,7 +4,7 @@
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Remark @update:value="onUpdateRemark"/>
     <Types :value.sync="record.type"/>
-    <keypad @update:value="onUpdateAmount"/>
+    <keypad :value.sync="record.amount"/>
   </Layout>
 </template>
 
@@ -38,10 +38,6 @@
 
     onUpdateRemark(value: string) {
       this.record.remark = value;
-    }
-
-    onUpdateAmount(value: string) {
-      this.record.amount = parseFloat(value);
     }
   }
 </script>
