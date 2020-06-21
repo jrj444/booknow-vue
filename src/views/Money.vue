@@ -14,15 +14,18 @@
   import Keypad from '@/components/Money/Keypad.vue';
   import Vue from 'vue';
   import {Component, Watch} from 'vue-property-decorator';
-  import {model} from '@/model';
+  import {recordListModel} from '@/models/recordListModel';
+  import {tagListModel} from '@/models/tagListModel';
 
-  const recordList = model.fetch();
+  const recordList = recordListModel.fetch();
+
+  const tagList = tagListModel.fetch();
 
   @Component({
     components: {Tags, Remark, Types, Keypad}
   })
   export default class Money extends Vue {
-    tags: string[] | undefined = ['购物', '饮食', '住宿', '交通'];
+    tags = tagList;
     record: RecordItem = {
       tags: [], remark: '', type: '-', amount: 0
     };
@@ -37,14 +40,14 @@
     }
 
     saveRecord() {
-      const recordDeepClone = model.clone(this.record);
+      const recordDeepClone = recordListModel.clone(this.record);
       recordDeepClone.createdAt = new Date();
       this.recordList.push(recordDeepClone);
     }
 
     @Watch('recordList')
     onRecordListChanged() {
-      model.save(this.recordList);
+      recordListModel.save(this.recordList);
     }
   }
 </script>
