@@ -4,7 +4,7 @@
       <Icon name="left"/>
       <span>编辑标签</span>
     </div>
-
+    <Remark filed-name="标签名"/>
   </Layout>
 </template>
 
@@ -13,9 +13,10 @@
   import {Component} from 'vue-property-decorator';
   import {tagListModel} from '@/models/tagListModel';
   import Icon from '@/components/Icon.vue';
+  import Remark from '@/components/Money/Remark.vue';
 
   @Component({
-    components: {Icon}
+    components: {Remark, Icon}
   })
   export default class EditLabel extends Vue {
     created() {

@@ -1,19 +1,21 @@
 <template>
   <div class="remark-wrapper">
     <label class="remark">
-      <span class="name">备注</span>
-      <input type="text" v-model="value" placeholder="在这里输入备注">
+      <span class="name">{{filedName}}</span>
+      <input type="text" v-model="value" :placeholder="placeholder">
     </label>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class Remark extends Vue {
     value = '';
+    @Prop({required: true}) filedName!: string;
+    @Prop() placeholder?: string;
 
     @Watch('value')
     onValueChanged(newValue: string) {
