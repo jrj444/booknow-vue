@@ -51,6 +51,7 @@
     remove(id: string) {
       if (this.tag) {
         tagListModel.remove(this.tag.id);
+        this.$router.replace('/labels');
       }
     }
 

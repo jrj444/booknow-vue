@@ -1,8 +1,8 @@
 <template>
   <div class="form-wrapper">
     <label class="form-item">
-      <span class="name">{{this.filedName}}</span>
-      <input type="text" :value="value" @input="onValueChanged($event.target.value)" :placeholder="this.placeholder">
+      <span class="name">{{filedName}}</span>
+      <input type="text" :value="value" @input="onValueChanged($event.target.value)" :placeholder="placeholder">
     </label>
   </div>
 </template>
@@ -17,7 +17,6 @@
     @Prop({required: true}) filedName!: string;
     @Prop() placeholder?: string;
 
-    @Watch('value')
     onValueChanged(newValue: string) {
       this.$emit('update:value', newValue);
     }
