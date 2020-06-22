@@ -58,10 +58,12 @@
 
     .tags {
       order: 2;
+      background: white;
     }
 
-    .remark-wrapper {
+    .form-wrapper {
       order: 1;
+      padding: 10px;
     }
 
     .keypad {

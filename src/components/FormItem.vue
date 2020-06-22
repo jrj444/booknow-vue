@@ -1,8 +1,8 @@
 <template>
-  <div class="remark-wrapper">
-    <label class="remark">
-      <span class="name">{{filedName}}</span>
-      <input type="text" v-model="value" :placeholder="placeholder">
+  <div class="form-wrapper">
+    <label class="form-item">
+      <span class="name">{{this.filedName}}</span>
+      <input type="text" v-model="value" :placeholder="this.placeholder">
     </label>
   </div>
 </template>
@@ -25,18 +25,17 @@
 </script>
 
 <style lang="scss" scoped>
-  .remark {
+  .form-item {
     display: flex;
     font-size: 14px;
-    background: #e5e5e5;
-    padding: 16px;
+    padding: 11px;
     line-height: 22px;
 
-    .name {
+    > .name {
       margin-right: 16px;
     }
 
-    input {
+    > input {
       border: none;
       background: transparent;
       flex-grow: 1;
