@@ -19,7 +19,7 @@ const tagListModel: TagListModel = {
     return this.data;
   },
   save() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.data));
+    window.localStorage.setItem('tagList', JSON.stringify(this.data));
   },
   create(name: string) {
     const names = this.data.map(item => item.name);
