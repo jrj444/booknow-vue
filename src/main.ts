@@ -13,6 +13,14 @@ Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 
 window.tagList = tagListModel.fetch();
+window.createTag = (name) => {
+  const message = tagListModel.create(name);
+  if (message === 'duplicated') {
+    window.alert('标签名重复啦，请重新创建！');
+  } else if (message === 'success') {
+    window.alert('添加成功！');
+  }
+};
 
 new Vue({
   router,
