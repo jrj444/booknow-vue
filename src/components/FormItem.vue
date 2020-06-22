@@ -12,7 +12,7 @@
   import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
-  export default class Remark extends Vue {
+  export default class FormItem extends Vue {
     value = '';
     @Prop({required: true}) filedName!: string;
     @Prop() placeholder?: string;

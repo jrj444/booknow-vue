@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-    <Remark filed-name="备注" placeholder="在这里输入备注" @update:value="onUpdateRemark"/>
+    <FormItem filed-name="备注" placeholder="在这里输入备注" @update:value="onUpdateRemark"/>
     <Types :value.sync="record.type"/>
     <keypad :value.sync="record.amount" @submit="saveRecord"/>
   </Layout>
@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import Tags from '@/components/Money/Tags.vue';
-  import Remark from '@/components/Money/Remark.vue';
+  import FormItem from '@/components/FormItem.vue';
   import Types from '@/components/Money/Types.vue';
   import Keypad from '@/components/Money/Keypad.vue';
   import Vue from 'vue';
@@ -21,7 +21,7 @@
   const tagList = tagListModel.fetch();
 
   @Component({
-    components: {Tags, Remark, Types, Keypad}
+    components: {Tags, FormItem, Types, Keypad}
   })
   export default class Money extends Vue {
     tags = tagList;

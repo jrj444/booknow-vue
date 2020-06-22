@@ -4,7 +4,8 @@
       <Icon name="left"/>
       <span>编辑标签</span>
     </div>
-    <Remark filed-name="标签名"/>
+    <FormItem filed-name="标签名"/>
+    <DButton>删除标签</DButton>
   </Layout>
 </template>
 
@@ -13,10 +14,11 @@
   import {Component} from 'vue-property-decorator';
   import {tagListModel} from '@/models/tagListModel';
   import Icon from '@/components/Icon.vue';
-  import Remark from '@/components/Money/Remark.vue';
+  import FormItem from '@/components/FormItem.vue';
+  import DButton from '@/components/DButton.vue';
 
   @Component({
-    components: {Remark, Icon}
+    components: {DButton, FormItem, Icon}
   })
   export default class EditLabel extends Vue {
     created() {

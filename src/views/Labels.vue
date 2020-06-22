@@ -6,8 +6,8 @@
         <Icon name="right"/>
       </router-link>
     </div>
-    <div class="create-tag-wrapper">
-      <button class="create-tag" @click="createTag">新建标签</button>
+    <div class="button-wrapper">
+      <DButton @click="createTag">新建标签</DButton>
     </div>
   </Layout>
 </template>
@@ -17,10 +17,11 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import {tagListModel} from '@/models/tagListModel';
+  import DButton from '@/components/DButton.vue';
 
   tagListModel.fetch();
   @Component({
-    components: {Icon}
+    components: {DButton, Icon}
   })
   export default class Labels extends Vue {
     tags = tagListModel.data;
@@ -54,18 +55,8 @@
     }
   }
 
-  .create-tag {
-    background: #41B883;
-    font-size: 17px;
-    padding: 9px 16px;
-    line-height: 22px;
-    border-radius: 4px;
-    border: none;
-    color: #fff;
-
-    &-wrapper {
-      text-align: center;
-      margin-top: 44px;
-    }
+  .button-wrapper {
+    text-align: center;
+    margin-top: 44px;
   }
 </style>
