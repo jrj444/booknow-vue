@@ -39,14 +39,12 @@
     }
 
     saveRecord() {
-      const recordDeepClone = recordListModel.clone(this.record);
-      recordDeepClone.createdAt = new Date();
-      this.recordList.push(recordDeepClone);
+      recordListModel.createItem(this.record);
     }
 
     @Watch('recordList')
     onRecordListChanged() {
-      recordListModel.save(this.recordList);
+      recordListModel.save();
     }
   }
 </script>
