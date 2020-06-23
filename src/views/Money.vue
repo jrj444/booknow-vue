@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <FormItem filed-name="备注" placeholder="在这里输入备注" @update:value="onUpdateRemark"/>
     <Types :value.sync="record.type"/>
@@ -15,16 +14,17 @@
   import Keypad from '@/components/Money/Keypad.vue';
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import store from '@/store/index2';
 
   @Component({
     components: {Tags, FormItem, Types, Keypad}
   })
   export default class Money extends Vue {
-    tags = window.tagList;
+    tags = store.tagList;
     record: RecordItem = {
       tags: [], remark: '', type: '-', amount: 0
     };
-    recordList = window.recordList;
+    recordList = store.recordList;
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -35,7 +35,7 @@
     }
 
     saveRecord() {
-      window.createRecord(this.record);
+      store.createRecord(this.record);
     }
   }
 </script>
