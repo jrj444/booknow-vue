@@ -13,13 +13,22 @@ Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 
 window.tagList = tagListModel.fetch();
-window.createTag = (name) => {
+window.findTag = (id: string) => {
+  return window.tagList.filter(tag => tag.id === id)[0];
+};
+window.createTag = (name: string) => {
   const message = tagListModel.create(name);
   if (message === 'duplicated') {
     window.alert('标签名重复啦，请重新创建！');
   } else if (message === 'success') {
     window.alert('添加成功！');
   }
+};
+window.removeTag = (id: string) => {
+  return tagListModel.remove(id);
+};
+window.updateTag = (id: string, name: string) => {
+  return tagListModel.update(id, name);
 };
 
 new Vue({
