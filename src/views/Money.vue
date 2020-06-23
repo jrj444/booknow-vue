@@ -1,5 +1,6 @@
 <template>
   <Layout class-prefix="layout">
+    {{record}}
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <FormItem filed-name="备注" placeholder="在这里输入备注" @update:value="onUpdateRemark"/>
     <Types :value.sync="record.type"/>
@@ -13,10 +14,7 @@
   import Types from '@/components/Money/Types.vue';
   import Keypad from '@/components/Money/Keypad.vue';
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
-  import {recordListModel} from '@/models/recordListModel';
-
-  const recordList = recordListModel.fetch();
+  import {Component} from 'vue-property-decorator';
 
   @Component({
     components: {Tags, FormItem, Types, Keypad}
@@ -26,7 +24,7 @@
     record: RecordItem = {
       tags: [], remark: '', type: '-', amount: 0
     };
-    recordList = recordList;
+    recordList = window.recordList;
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -37,12 +35,7 @@
     }
 
     saveRecord() {
-      recordListModel.createItem(this.record);
-    }
-
-    @Watch('recordList')
-    onRecordListChanged() {
-      recordListModel.save();
+      window.createRecord(this.record);
     }
   }
 </script>

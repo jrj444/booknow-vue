@@ -6,11 +6,15 @@ import store from './store';
 import Nav from '@/components/Nav.vue';
 import Layout from '@/components/Layout.vue';
 import {tagListModel} from '@/models/tagListModel';
+import {recordListModel} from '@/models/recordListModel';
 
 Vue.config.productionTip = false;
 
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
+
+window.recordList = recordListModel.fetch();
+window.createRecord = (record: RecordItem) => recordListModel.createItem(record);
 
 window.tagList = tagListModel.fetch();
 window.findTag = (id: string) => {
