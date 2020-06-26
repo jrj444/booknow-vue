@@ -2,7 +2,7 @@
   <Layout class-prefix="layout">
     <Tags/>
     <FormItem filed-name="备注" placeholder="在这里输入备注" @update:value="onUpdateRemark"/>
-    <Types :value.sync="record.type"/>
+    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <keypad :value.sync="record.amount" @submit="saveRecord"/>
   </Layout>
 </template>
@@ -14,16 +14,18 @@
   import Keypad from '@/components/Money/Keypad.vue';
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store';
+  import recordTypeList from '@/constants/recordTypeList';
+  import Tabs from '@/components/Tabs.vue';
 
   @Component({
-    components: {Tags, FormItem, Types, Keypad}
+    components: {Tabs, Tags, FormItem, Types, Keypad}
   })
   export default class Money extends Vue {
     get recordList() {
       return this.$store.state.recordList;
     }
 
+    recordTypeList = recordTypeList;
     record: RecordItem = {
       tags: [], remark: '', type: '-', amount: 0
     };
