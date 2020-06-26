@@ -4,8 +4,8 @@
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <div>
       <ul>
-        <li v-for="(group, index) in result" :key="index">
-          <h4 class="title">{{group.title}}</h4>
+        <li v-for="group in result" :key="group.title">
+          <h4 class="title">{{beautify(group.title)}}</h4>
           <ul>
             <li class="recordList" v-for="item in group.items" :key="item.id">
               <span>{{tagsToString(item.tags)}}</span>
@@ -25,6 +25,7 @@
   import Tabs from '@/components/Tabs.vue';
   import intervalList from '@/constants/intervalList';
   import recordTypeList from '@/constants/recordTypeList';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {Tabs}
@@ -56,6 +57,20 @@
 
     tagsToString(tags: string[]) {
       return tags.length === 0 ? '无' : tags.join(',');
+    }
+
+    beautify(string: string) {
+      const day = dayjs(string);
+      const now = dayjs();
+      if (day.isSame(now, 'day')) {
+        return '今天';
+      } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+        return '昨天';
+      } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+        return '前天';
+      } else {
+        return day.format('M月D日');
+      }
     }
   }
 </script>
