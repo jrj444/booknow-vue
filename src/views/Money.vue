@@ -14,23 +14,30 @@
   import Keypad from '@/components/Money/Keypad.vue';
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
+  import store from '@/store';
 
   @Component({
     components: {Tags, FormItem, Types, Keypad}
   })
   export default class Money extends Vue {
+    get recordList() {
+      return this.$store.state.recordList;
+    }
+
     record: RecordItem = {
       tags: [], remark: '', type: '-', amount: 0
     };
-    recordList = store.recordList;
+
+    created() {
+      this.$store.commit('fetchRecords');
+    }
 
     onUpdateRemark(value: string) {
       this.record.remark = value;
     }
 
     saveRecord() {
-      store.createRecord(this.record);
+      this.$store.commit('createRecord', this.record);
     }
   }
 </script>
