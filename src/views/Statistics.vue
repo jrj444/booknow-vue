@@ -5,10 +5,12 @@
     <div>
       <ul>
         <li v-for="(group, index) in result" :key="index">
-          <h4>{{group.title}}</h4>
+          <h4 class="title">{{group.title}}</h4>
           <ul>
-            <li v-for="item in group.items" :key="item.id">
-              ￥ {{item.amount}}
+            <li class="recordList" v-for="item in group.items" :key="item.id">
+              <span>{{tagsToString(item.tags)}}</span>
+              <span class="remark">{{item.remark}}</span>
+              <span>￥{{item.amount}}</span>
             </li>
           </ul>
         </li>
@@ -51,6 +53,10 @@
     interval = 'day';
     intervalList = intervalList;
     recordTypeList = recordTypeList;
+
+    tagsToString(tags: string[]) {
+      return tags.length === 0 ? '无' : tags.join(',');
+    }
   }
 </script>
 
@@ -78,4 +84,26 @@
     }
   }
 
+  .title {
+    padding: 9px 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .recordList {
+    background: white;
+    padding: 9px 16px;
+    line-height: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .remark {
+    margin-right: auto;
+    margin-left: 13px;
+    color: #999999;
+  }
 </style>
