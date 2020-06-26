@@ -2,6 +2,11 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
+    <div>
+      <ul>
+        <li v-for="item in result" :key="item.id">{{item}}</li>
+      </ul>
+    </div>
   </Layout>
 </template>
 
@@ -16,6 +21,18 @@
     components: {Tabs}
   })
   export default class Statistics extends Vue {
+    get recordList() {
+      return this.$store.state.recordList;
+    }
+
+    get result() {
+      return this.recordList;
+    }
+
+    created(){
+      this.$store.commit('fetchRecords');
+    }
+
     type = '-';
     interval = 'day';
     intervalList = intervalList;
