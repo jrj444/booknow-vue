@@ -1,3 +1,14 @@
+type HashTableValue = {
+  title: string;
+  items: RecordItem[];
+}
+
+type RootState = {
+  recordList: RecordItem[];
+  tagList: Tag[];
+  currentTag?: Tag;
+}
+
 type RecordItem = {
   tags: string[];
   remark: string;
