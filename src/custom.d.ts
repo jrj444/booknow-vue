@@ -17,3 +17,8 @@ type Tag = {
   name: string;
 }
 
+type Result = {
+  title: string;
+  items: RecordItem[];
+  total?: number;
+}[]

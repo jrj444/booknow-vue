@@ -4,7 +4,7 @@
     <div>
       <ul>
         <li v-for="(group,index) in groupedList" :key="index">
-          <h4 class="title">{{beautify(group.title)}}</h4>
+          <h4 class="title">{{beautify(group.title)}}<span>￥{{group.total}}</span></h4>
           <ul>
             <li class="recordList" v-for="item in group.items" :key="item.id">
               <span>{{tagsToString(item.tags)}}</span>
@@ -37,8 +37,8 @@
     get groupedList() {
       const recordList = this.recordList;
       if (recordList.length === 0) {return [];}
-      const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      const result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+      const newList = clone(recordList).filter(r => r.type === this.type).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+      const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
       for (let i = 1; i < newList.length; i++) {
         const current = newList[i];
         const last = result[result.length - 1];
@@ -48,6 +48,7 @@
           result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
         }
       }
+      result.map(group => {group.total = group.items.reduce((sum, item) => sum + item.amount, 0);});
       return result;
     }
 
@@ -58,7 +59,7 @@
     type = '-';
     recordTypeList = recordTypeList;
 
-    tagsToString(tags: string[]) {
+    tagsToString(tags: Tag[]) {
       return tags.length === 0 ? '无' : tags.join(',');
     }
 
@@ -107,7 +108,7 @@
     line-height: 22px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   .recordList {
