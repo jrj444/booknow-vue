@@ -1,8 +1,3 @@
-type HashTableValue = {
-  title: string;
-  items: RecordItem[];
-}
-
 type RootState = {
   recordList: RecordItem[];
   tagList: Tag[];
@@ -10,7 +5,7 @@ type RootState = {
 }
 
 type RecordItem = {
-  tags: string[];
+  tags: Tag[];
   remark: string;
   type: string;
   amount: number;
@@ -22,23 +17,3 @@ type Tag = {
   name: string;
 }
 
-type TagListModel = {
-  data: Tag[];
-  fetch: () => Tag[];
-  create: (name: string) => string;
-  save: () => void;
-  update: (id: string, name: string) => string;
-  remove: (id: string) => boolean;
-}
-
-interface Window {
-  store: {
-    tagList: Tag[];
-    findTag: (id: string) => Tag;
-    createTag: (name: string) => void;
-    removeTag: (id: string) => boolean;
-    updateTag: (id: string, name: string) => string;
-    recordList: RecordItem[];
-    createRecord: (record: RecordItem) => void;
-  };
-}
