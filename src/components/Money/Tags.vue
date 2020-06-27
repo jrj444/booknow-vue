@@ -63,7 +63,7 @@
         border-radius: 12px;
         padding: 0 18px;
         margin-right: 16px;
-        margin-top: 4px;
+        margin-bottom: 8px;
 
         &.selected {
           background: #777777;
@@ -73,7 +73,7 @@
     }
 
     > .new-tag {
-      padding-top: 16px;
+      padding-top: 6px;
 
       button {
         background: transparent;

@@ -2,7 +2,7 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <div>
-      <ul>
+      <ul v-if="groupedList.length>0">
         <li v-for="(group,index) in groupedList" :key="index">
           <h4 class="title">{{beautify(group.title)}}<span>￥{{group.total}}</span></h4>
           <ul>
@@ -14,6 +14,9 @@
           </ul>
         </li>
       </ul>
+      <div v-else class="no-records">
+        目前没有记录
+      </div>
     </div>
   </Layout>
 </template>
@@ -36,8 +39,8 @@
 
     get groupedList() {
       const recordList = this.recordList;
-      if (recordList.length === 0) {return [];}
       const newList = clone(recordList).filter(r => r.type === this.type).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+      if (newList.length === 0) {return [];}
       const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
       for (let i = 1; i < newList.length; i++) {
         const current = newList[i];
@@ -60,7 +63,7 @@
     recordTypeList = recordTypeList;
 
     tagsToString(tags: Tag[]) {
-      return tags.length === 0 ? '无' : tags.join(',');
+      return tags.length === 0 ? '无' : tags.map(t => t.name).join(', ');
     }
 
     beautify(string: string) {
@@ -80,6 +83,12 @@
 </script>
 
 <style scoped lang="scss">
+  .no-records {
+    padding: 16px;
+    margin-top: 40px;
+    text-align: center;
+  }
+
   ::v-deep {
     .type-tabs-item {
       background: white;

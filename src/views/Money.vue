@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags/>
-    <FormItem filed-name="备注" placeholder="在这里输入备注" @update:value="onUpdateRemark"/>
+    <Tags @update:value="record.tags = $event"/>
+    <FormItem filed-name="备注" placeholder="在这里输入备注" :value.sync="record.remark"/>
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <keypad :value.sync="record.amount" @submit="saveRecord"/>
   </Layout>
@@ -33,13 +33,13 @@
       this.$store.commit('fetchRecords');
     }
 
-    onUpdateRemark(value: string) {
-      this.record.remark = value;
-    }
-
     saveRecord() {
+      if (!this.record.tags || this.record.tags.length === 0) {
+        return window.alert('请先选择一个标签');
+      }
       this.$store.commit('createRecord', this.record);
       window.alert('记录已保存');
+      this.record.remark = '';
     }
   }
 </script>
