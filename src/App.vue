@@ -17,4 +17,9 @@
     background: #f5f5f5;
   }
 
+  #app{
+    max-width: 450px;
+    margin: auto;
+  }
+
 </style>
