@@ -26,7 +26,7 @@
 
   @Component
   export default class Keypad extends Vue {
-    @Prop() readonly value!: number;
+    @Prop(Number) readonly value!: number;
     output = this.value.toString();
 
     numInput(event: MouseEvent) {
@@ -58,8 +58,9 @@
     }
 
     ok() {
-      this.$emit('update:value', this.output);
-      this.$emit('submit',this.output);
+      const toNum = parseFloat(this.output);
+      this.$emit('update:value', toNum);
+      this.$emit('submit', toNum);
       this.output = '0';
     }
   }
