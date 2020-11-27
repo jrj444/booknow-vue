@@ -23,8 +23,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import CreateAt from '@/components/Money/CreateAt.vue';
 
-@Component
+@Component({
+  components: {Date: CreateAt}
+})
 export default class Keypad extends Vue {
   @Prop(Number) readonly value!: number;
   output = this.value.toString();
@@ -89,57 +92,16 @@ export default class Keypad extends Vue {
       text-align: center;
       border: none;
       float: left;
-
-      &:hover {
-        border: 2px solid #1890ff;
-      }
-
-      &:active {
-        background: #1890ff;
-        color: #fff;
-        font-size: 20px;
-      }
     }
 
     > .ok {
       height: 128px;
       float: right;
-
-      &:hover {
-        border: 2px solid #52c41a;
-      }
-
-      &:active {
-        background: #52c41a;
-        color: #fff;
-        font-size: 20px;
-      }
-    }
-
-    > .remove:hover {
-      border: 2px solid #f5222d;
-    }
-
-    > .remove:active {
-      background: #f5222d;
-      color: #fff;
-      font-size: 20px;
-    }
-
-    > .clear:hover {
-      border: 2px solid #f5222d;
-    }
-
-    > .clear:active {
-      background: #f5222d;
-      color: #fff;
-      font-size: 20px;
     }
 
     > .zero {
       width: 50%;
     }
-
   }
 
 }
