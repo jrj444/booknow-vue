@@ -26,7 +26,7 @@ export default class Statistics extends Vue {
     return (this.$store.state as RootState).recordList;
   }
 
-  get x() {
+  get y() {
     const today = new Date();
     const array = [];
     for (let i = 0; i < 30; i++) {
@@ -34,9 +34,22 @@ export default class Statistics extends Vue {
       const found = _.find(this.recordList, {createdAt: dateString});
       array.push({date: dateString, amount: found ? found.amount : 0});
     }
-    console.log(array);
-    const keys = array.map(item => item.date);
-    const values = array.map(item => item.amount);
+    array.sort((a, b) => {
+      if (a.date > b.date) {
+        return 1;
+      } else if (a.date === b.date) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    return array;
+  }
+
+  get x() {
+
+    const keys = this.y.map(item => item.date);
+    const values = this.y.map(item => item.amount);
     return {
       grid: {
         left: 0,
