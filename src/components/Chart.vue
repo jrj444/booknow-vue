@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" id="chart">chart</div>
+  <div class="wrapper" ref="chart">chart</div>
 </template>
 
 <script lang="ts">
@@ -16,7 +16,7 @@ export default class Chart extends Vue {
       return console.error('options 为空')
     }
     console.log(this.options);
-    const chart = echarts.init(document.getElementById('chart'));
+    const chart = echarts.init(this.$refs.chart as HTMLDivElement);
     chart.setOption(this.options);
   }
 }

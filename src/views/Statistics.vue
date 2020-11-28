@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="x"></Chart>
     </div>
   </Layout>
@@ -15,6 +15,11 @@ import Chart from '@/components/Chart.vue';
   components: {Chart}
 })
 export default class Statistics extends Vue {
+  mounted() {
+    const div = (this.$refs.chartWrapper as HTMLDivElement);
+    div.scrollLeft = div.scrollWidth;
+  }
+
   get x() {
     return {
       grid: {
