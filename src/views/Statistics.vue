@@ -10,6 +10,8 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Chart from '@/components/Chart.vue';
+import _ from 'lodash';
+import dayjs from 'dayjs';
 
 @Component({
   components: {Chart}
@@ -20,7 +22,21 @@ export default class Statistics extends Vue {
     div.scrollLeft = div.scrollWidth;
   }
 
+  get recordList() {
+    return (this.$store.state as RootState).recordList;
+  }
+
   get x() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i < 30; i++) {
+      const dateString = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(this.recordList, {createdAt: dateString});
+      array.push({date: dateString, amount: found ? found.amount : 0});
+    }
+    console.log(array);
+    const keys = array.map(item => item.date);
+    const values = array.map(item => item.amount);
     return {
       grid: {
         left: 0,
@@ -28,7 +44,7 @@ export default class Statistics extends Vue {
       },
       xAxis: {
         type: 'category',
-        data: ['1', '2', '3', '4', '5', '6', '7'],
+        data: keys,
         axisTick: {alignWithLabel: true},
         axisLine: {lineStyle: {color: '#777'}}
       },
@@ -38,7 +54,7 @@ export default class Statistics extends Vue {
       },
       series: [{
         symbolSize: 10,
-        data: [100, 200, 300, 200, 400, 500, 140],
+        data: values,
         type: 'line'
       }],
       tooltip: {

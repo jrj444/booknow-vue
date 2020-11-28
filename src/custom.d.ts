@@ -9,7 +9,7 @@ type RecordItem = {
   remark: string;
   type: string;
   amount: number;
-  createdAt?: string;
+  createdAt: string;
 }
 
 type Tag = {
