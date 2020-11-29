@@ -18,7 +18,7 @@
   };
 </script>
 
-<style scoped>
+<style>
   .icon {
     width: 1em;
     height: 1em;

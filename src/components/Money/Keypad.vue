@@ -5,7 +5,9 @@
       <button @click="numInput">7</button>
       <button @click="numInput">8</button>
       <button @click="numInput">9</button>
-      <button @click="remove" class="remove">删除</button>
+      <button @click="remove" class="remove">
+        <Icon name="backspace"></Icon>
+      </button>
       <button @click="numInput">4</button>
       <button @click="numInput">5</button>
       <button @click="numInput">6</button>
@@ -24,9 +26,10 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import CreateAt from '@/components/Money/CreateAt.vue';
+import Icon from '@/components/Icon.vue';
 
 @Component({
-  components: {Date: CreateAt}
+  components: {Icon, Date: CreateAt}
 })
 export default class Keypad extends Vue {
   @Prop(Number) readonly value!: number;
@@ -87,22 +90,32 @@ export default class Keypad extends Vue {
     @extend %clear-fix;
 
     > button {
-      height: 64px;
+      height: 50px;
       width: 25%;
       text-align: center;
       border: none;
       float: left;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #353c4f;
+      color: #fff;
+
+      > .icon {
+        width: 28px;
+        height: 28px;
+      }
     }
 
     > .ok {
-      height: 128px;
+      height: calc(50 * 2px);
       float: right;
+      background: #f46064;
     }
 
     > .zero {
       width: 50%;
     }
   }
-
 }
 </style>
