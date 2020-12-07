@@ -65,5 +65,10 @@ export default class Money extends Vue {
   .keypad {
     order: -1;
   }
+
+  .tabs {
+    order: 3;
+
+  }
 }
 </style>

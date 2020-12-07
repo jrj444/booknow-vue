@@ -22,3 +22,8 @@ type Result = {
   items: RecordItem[];
   total?: number;
 }[]
+
+type DataSourceItem = {
+  text: string;
+  value: string;
+}

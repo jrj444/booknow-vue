@@ -58,16 +58,16 @@
       > li {
         display: flex;
         align-items: center;
-        background: #d9d9d9;
+        border: 2px solid #999999;
         height: 24px;
-        border-radius: 12px;
+        border-radius: 8px;
         padding: 0 18px;
         margin-right: 16px;
         margin-bottom: 8px;
 
         &.selected {
-          background: #777777;
-          color: white;
+          border: 2px solid #f46064;
+
         }
       }
     }

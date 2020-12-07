@@ -1,6 +1,7 @@
 <template>
   <div class="createAt-wrapper">
     <label class="createAt">
+      <span>日期</span>
       <input type="date" :value="x(value)" @input="onValueChanged($event.target.value)">
     </label>
   </div>
@@ -29,13 +30,19 @@ export default class CreateAt extends Vue {
 .createAt {
   display: flex;
   font-size: 14px;
-  padding: 11px;
+  padding: 20px;
   line-height: 22px;
+  background: #fff;
+
+  >span{
+    margin-right: 16px;
+  }
 
   > input {
     border: none;
     background: transparent;
     flex-grow: 1;
+    color: #BCBBC1;
   }
 }
 </style>
