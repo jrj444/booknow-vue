@@ -1,11 +1,15 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <div class="monthAmount">
+      <div class="number">{{ monthAmount }}</div>
+      <div class="category">
+        <span v-if="type === `-`">本月支出</span>
+        <span v-else>本月收入</span>
+      </div>
+    </div>
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions"></Chart>
-    </div>
-    <div class="count">
-
     </div>
   </Layout>
 </template>
@@ -40,18 +44,30 @@ export default class Statistics extends Vue {
     return (this.$store.state as RootState).recordList;
   }
 
+  get monthAmount() {
+    const groupedList = this.groupedList;
+    const newList = clone(groupedList);
+    let amount = 0;
+    for (let i = 0; i < newList.length; i++) {
+      if (dayjs(new Date()).month() === dayjs(newList[i].title).month()) {
+        amount += newList[i].total.valueOf();
+      }
+    }
+    return amount.toFixed(2);
+  }
+
   get groupedList() {
     const recordList = this.recordList;
     const newList = clone(recordList).filter(r => r.type === this.type).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
     if (newList.length === 0) {return [];}
-    const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]], total: 0}];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
       if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
         last.items.push(current);
       } else {
-        result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
+        result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current], total: 0});
       }
     }
     result.map(group => {group.total = group.items.reduce((sum, item) => sum + item.amount, 0);});
@@ -118,6 +134,47 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+.monthAmount {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  > .number {
+    font-size: 32px;
+    font-family: Montserrat, sans-serif;
+  }
+
+  > .category {
+    color: #BCBBC1;
+    height: 18px;
+    margin-top: 10px;
+    position: relative;
+
+    > span {
+      line-height: 18px;
+    }
+
+    &::after, &::before {
+      position: absolute;
+      width: 48px;
+      height: 1px;
+      content: '';
+      top: 9px;
+      background: #BCBBC1;
+    }
+
+    &::after {
+      left: -100%;
+    }
+
+    &::before {
+      right: -100%;
+    }
+  }
+}
+
 .chart-wrapper {
   overflow: auto;
   height: 50%;

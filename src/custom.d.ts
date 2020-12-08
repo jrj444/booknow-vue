@@ -20,7 +20,7 @@ type Tag = {
 type Result = {
   title: string;
   items: RecordItem[];
-  total?: number;
+  total: number;
 }[]
 
 type DataSourceItem = {
