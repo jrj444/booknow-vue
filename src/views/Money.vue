@@ -68,7 +68,6 @@ export default class Money extends Vue {
 
   .tabs {
     order: 3;
-
   }
 }
 </style>
