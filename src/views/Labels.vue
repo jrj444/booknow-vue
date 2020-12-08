@@ -1,5 +1,10 @@
 <template>
   <Layout>
+    <div class="nav-bar">
+      <Icon class="left-icon" name="left" @click="goBack"/>
+      <span class="title">编辑标签</span>
+      <span class="right-icon"></span>
+    </div>
     <div class="tags">
       <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
         <span>{{ tag.name }}</span>
@@ -31,12 +36,38 @@ export default class Labels extends mixins(TagHelper) {
     this.$store.commit('fetchTags');
   }
 
+  goBack() {
+    this.$router.back();
+  }
+
 }
 </script>
 
 <style lang="scss" scoped>
+.nav-bar {
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 16px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > .left-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  > .right-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 .tags {
   background: white;
+  margin-top: 8px;
 
   > .tag {
     display: flex;

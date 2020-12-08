@@ -71,15 +71,12 @@ export default class EditLabel extends Vue {
   > .left-icon {
     width: 20px;
     height: 20px;
+    cursor: pointer;
   }
 
   > .right-icon {
     width: 20px;
     height: 20px;
-  }
-
-  > .title {
-
   }
 }
 
