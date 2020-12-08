@@ -23,16 +23,16 @@ export default class Tabs extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .tabs {
   display: flex;
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   background: #fff;
 
   .tabs-item {
     width: 50%;
-    height: 64px;
+    height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
