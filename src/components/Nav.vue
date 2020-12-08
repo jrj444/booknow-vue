@@ -4,10 +4,6 @@
       <Icon name="money"/>
       记账
     </router-link>
-    <router-link to="/labels" class="item" active-class="selected">
-      <Icon name="labels"/>
-      标签
-    </router-link>
     <router-link to="/detail" class="item" active-class="selected">
       <Icon name="detail"/>
       明细
