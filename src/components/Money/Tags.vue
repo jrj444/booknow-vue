@@ -62,12 +62,11 @@
         height: 24px;
         border-radius: 8px;
         padding: 0 18px;
-        margin-right: 16px;
+        margin-right: 8px;
         margin-bottom: 8px;
 
         &.selected {
           border: 2px solid #f46064;
-
         }
       }
     }

@@ -17,80 +17,84 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
-  import Icon from '@/components/Icon.vue';
-  import FormItem from '@/components/FormItem.vue';
-  import DButton from '@/components/DButton.vue';
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+import Icon from '@/components/Icon.vue';
+import FormItem from '@/components/FormItem.vue';
+import DButton from '@/components/DButton.vue';
 
-  @Component({
-    components: {DButton, FormItem, Icon}
-  })
-  export default class EditLabel extends Vue {
-    get currentTag() {
-      return this.$store.state.currentTag;
-    }
+@Component({
+  components: {DButton, FormItem, Icon}
+})
+export default class EditLabel extends Vue {
+  get currentTag() {
+    return this.$store.state.currentTag;
+  }
 
-    created() {
-      const id = this.$route.params.id;
-      this.$store.commit('fetchTags')
-      this.$store.commit('setCurrentTag', id);
-      if (!this.currentTag) {
-        this.$router.replace('/404');
-      }
-    }
-
-    update(name: string) {
-      if (this.currentTag) {
-        this.$store.commit('updateTag', {id: this.currentTag.id, name});
-      }
-    }
-
-    remove() {
-      if (this.currentTag) {
-        this.$store.commit('removeTag', this.currentTag.id)
-      }
-    }
-
-    goBack() {
-      this.$router.back();
+  created() {
+    const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
+    this.$store.commit('setCurrentTag', id);
+    if (!this.currentTag) {
+      this.$router.replace('/404');
     }
   }
+
+  update(name: string) {
+    if (this.currentTag) {
+      this.$store.commit('updateTag', {id: this.currentTag.id, name});
+    }
+  }
+
+  remove() {
+    if (this.currentTag) {
+      this.$store.commit('removeTag', this.currentTag.id);
+    }
+  }
+
+  goBack() {
+    this.$router.back();
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-  .nav-bar {
-    text-align: center;
-    font-size: 16px;
-    padding: 12px 16px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.nav-bar {
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 16px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    > .left-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    > .right-icon {
-      width: 20px;
-      height: 20px;
-    }
-
-    > .title {
-
-    }
+  > .left-icon {
+    width: 20px;
+    height: 20px;
   }
 
-  .form-wrapper {
-    background: white;
-    margin-top: 8px;
+  > .right-icon {
+    width: 20px;
+    height: 20px;
   }
 
-  .button-wrapper {
-    text-align: center;
-    padding: 16px;
-    margin-top: 44-16px;
+  > .title {
+
   }
+}
+
+.form-wrapper {
+  background: white;
+  margin-top: 8px;
+}
+
+.button-wrapper {
+  text-align: center;
+  padding: 16px;
+  margin-top: 44-16px;
+
+  > .button {
+    background: #f5222d;
+  }
+}
 </style>

@@ -52,7 +52,7 @@ nav {
   }
 
   > .item.selected {
-    color: $color-highlight;
+    color: orangered;
   }
 }
 </style>

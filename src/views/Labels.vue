@@ -2,7 +2,7 @@
   <Layout>
     <div class="tags">
       <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
-        <span>{{tag.name}}</span>
+        <span>{{ tag.name }}</span>
         <Icon name="right"/>
       </router-link>
     </div>
@@ -13,44 +13,48 @@
 </template>
 
 <script lang="ts">
-  import Icon from '@/components/Icon.vue';
-  import {Component} from 'vue-property-decorator';
-  import DButton from '@/components/DButton.vue';
-  import {mixins} from 'vue-class-component';
-  import TagHelper from '@/mixins/tagHelper';
+import Icon from '@/components/Icon.vue';
+import {Component} from 'vue-property-decorator';
+import DButton from '@/components/DButton.vue';
+import {mixins} from 'vue-class-component';
+import TagHelper from '@/mixins/tagHelper';
 
-  @Component({
-    components: {DButton, Icon}
-  })
-  export default class Labels extends mixins(TagHelper) {
-    get tags() {
-      return this.$store.state.tagList;
-    }
-
-    created() {
-      this.$store.commit('fetchTags');
-    }
-
+@Component({
+  components: {DButton, Icon}
+})
+export default class Labels extends mixins(TagHelper) {
+  get tags() {
+    return this.$store.state.tagList;
   }
+
+  created() {
+    this.$store.commit('fetchTags');
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>
-  .tags {
-    background: white;
+.tags {
+  background: white;
 
-    > .tag {
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-      line-height: 16px;
-      justify-content: space-between;
-      padding: 12px 16px 16px 15px;
-      box-shadow: inset 0px -1px 0px 0px #BCBBC1;
-    }
+  > .tag {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 16px;
+    justify-content: space-between;
+    padding: 12px 16px 16px 15px;
+    box-shadow: inset 0px -1px 0px 0px #BCBBC1;
   }
+}
 
-  .button-wrapper {
-    text-align: center;
-    margin-top: 44px;
+.button-wrapper {
+  text-align: center;
+  margin-top: 44px;
+
+  > .button {
+    background: #1890ff;
   }
+}
 </style>

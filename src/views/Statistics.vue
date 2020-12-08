@@ -4,6 +4,9 @@
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions"></Chart>
     </div>
+    <div class="count">
+      {{recordList}}
+    </div>
   </Layout>
 </template>
 
@@ -117,9 +120,11 @@ export default class Statistics extends Vue {
 <style scoped lang="scss">
 .chart-wrapper {
   overflow: auto;
+  height: 50%;
 
   > .chart {
     width: 430%;
+    height: 100%;
   }
 }
 

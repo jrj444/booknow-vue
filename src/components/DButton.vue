@@ -14,14 +14,14 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .button {
-    background: #41B883;
     font-size: 17px;
     padding: 9px 16px;
     line-height: 22px;
     border-radius: 4px;
     border: none;
     color: #fff;
+    cursor: pointer;
   }
 </style>
