@@ -28,8 +28,8 @@
           <span>最多笔数</span>
         </div>
         <div class="content">
-          <span>{{ mostAmount.tag }}</span>
-          <span>{{ mostAmount.amount }}笔</span>
+          <span>{{ mostTimes.maxTag }}</span>
+          <span>{{ mostTimes.maxCount }} 笔</span>
         </div>
       </div>
     </div>
@@ -68,8 +68,35 @@ export default class Statistics extends Vue {
   }
 
   get mostTimes() {
-
-    return 0;
+    const recordList = this.recordList;
+    const newList = clone(recordList)
+        .filter(r => r.type === this.type)
+        .filter(r => dayjs(r.createdAt).month() === dayjs(new Date()).month());
+    if (newList.length === 0) {
+      return {'maxTag': null, 'maxCount': 0};
+    }
+    const tagsName = [];
+    for (let i = 0; i < newList.length; i++) {
+      tagsName.push(newList[i].tags[0].name);
+    }
+    const countTags: { [tag: string]: number } = {};
+    for (let i = 0; i < tagsName.length; i++) {
+      const tag = tagsName[i];
+      if (countTags[tag]) {
+        countTags[tag]++;
+      } else {
+        countTags[tag] = 1;
+      }
+    }
+    let maxCount = 0;
+    let maxTag = tagsName[0];
+    for (const key in countTags) {
+      if (maxCount < countTags[key]) {
+        maxCount = countTags[key];
+        maxTag = key;
+      }
+    }
+    return {maxTag, maxCount};
   }
 
   get mostAmount() {
@@ -78,6 +105,9 @@ export default class Statistics extends Vue {
         .filter(r => r.type === this.type)
         .filter(r => dayjs(r.createdAt).month() === dayjs(new Date()).month())
         .sort((a, b) => b.amount - a.amount);
+    if (newList.length === 0) {
+      return {'tag': null, 'amount': 0};
+    }
     return {'tag': newList[0].tags[0].name, 'amount': newList[0].amount.toFixed(2)};
   }
 
