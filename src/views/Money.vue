@@ -39,6 +39,9 @@ export default class Money extends Vue {
     if (!this.record.tags || this.record.tags.length === 0) {
       return window.alert('请先选择一个标签');
     }
+    if (this.record.tags.length > 1) {
+      return window.alert('只能选择一个标签噢');
+    }
     this.$store.commit('createRecord', this.record);
     window.alert('记录已保存');
     this.record.remark = '';
