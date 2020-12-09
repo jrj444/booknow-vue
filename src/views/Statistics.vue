@@ -11,6 +11,28 @@
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions"></Chart>
     </div>
+    <div class="most-wrapper">
+      <div class="most-amount">
+        <div class="title">
+          <Icon name="amount"></Icon>
+          <span>最高金额</span>
+        </div>
+        <div class="content">
+          <span>{{ mostAmount.tag }}</span>
+          <span>{{ mostAmount.amount }}</span>
+        </div>
+      </div>
+      <div class="most-times">
+        <div class="title">
+          <Icon name="times"></Icon>
+          <span>最多笔数</span>
+        </div>
+        <div class="content">
+          <span>{{ mostAmount.tag }}</span>
+          <span>{{ mostAmount.amount }}笔</span>
+        </div>
+      </div>
+    </div>
   </Layout>
 </template>
 
@@ -23,9 +45,10 @@ import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
+import Icon from '@/components/Icon.vue';
 
 @Component({
-  components: {Tabs, Chart}
+  components: {Icon, Tabs, Chart}
 })
 export default class Statistics extends Vue {
   created() {
@@ -42,6 +65,20 @@ export default class Statistics extends Vue {
 
   get recordList() {
     return (this.$store.state as RootState).recordList;
+  }
+
+  get mostTimes() {
+
+    return 0;
+  }
+
+  get mostAmount() {
+    const recordList = this.recordList;
+    const newList = clone(recordList)
+        .filter(r => r.type === this.type)
+        .filter(r => dayjs(r.createdAt).month() === dayjs(new Date()).month())
+        .sort((a, b) => b.amount - a.amount);
+    return {'tag': newList[0].tags[0].name, 'amount': newList[0].amount.toFixed(2)};
   }
 
   get monthAmount() {
@@ -134,6 +171,47 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+.most-wrapper {
+  padding: 32px;
+  display: flex;
+  justify-content: space-around;
+
+  .title {
+    font-size: 18px;
+
+    > .icon {
+      color: orangered;
+      font-size: 20px;
+      margin-right: 4px;
+    }
+  }
+
+  .content {
+    color: #999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > span {
+      padding: 6px;
+      line-height: 14px;
+      font-size: 14px;
+    }
+  }
+
+  > .most-amount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  > .most-times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .monthAmount {
   padding: 16px;
   display: flex;
